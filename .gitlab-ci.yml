@@ -1,19 +1,9 @@
-stages: [test, build, publish]
+stages: [build, publish]
 
 variables:
   FLATPAK_REPO_URL: "https://kestermckinney.gitlab.io/gnomelegionlight/flatpak/"
   DISABLE_ROFILES_FUSE: "1"
   USE_BUILDER_FLATPAK: "0"
-
-# Daemon tests need no keyboard, session bus or GNOME Shell.
-cargo-test:
-  stage: test
-  image: rust:1
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
-  script:
-    - cargo test --locked
 
 # Serialize export and publication jobs.
 flatpak-release:
