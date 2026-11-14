@@ -26,8 +26,7 @@ Requires [Flatpak](https://flatpak.org/setup/) with the Flathub remote (for the
 runtime) and GNOME Shell 45 or newer.
 
 ```bash
-flatpak remote-add --user --if-not-exists gnomelegionlight \
-  https://kestermckinney.gitlab.io/gnomelegionlight/flatpak/gnomelegionlight.flatpakrepo
+flatpak remote-add --user --if-not-exists gnomelegionlight https://kestermckinney.gitlab.io/gnomelegionlight/flatpak/gnomelegionlight.flatpakrepo
 flatpak install --user gnomelegionlight io.gitlab.kestermckinney.GnomeLegionLight
 ```
 
