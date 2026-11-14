@@ -555,7 +555,7 @@ checksum = "3bd1574e617a9a6c1f8f8181bd7e841e1f20e4277607ef28945765188d6284d4"
 [[package]]
 name = "legion_light"
 version = "0.2.0"
-source = "git+https://gitlab.com/kestermckinney/legionlight.git?branch=main#382a2d0ffc238813c2f5f2e4ac37619d451d0699"
+source = "git+https://gitlab.com/kestermckinney/legionlight.git?branch=main#329c510a2a66e4840197ef08616c59a00c4895c7"
 dependencies = [
  "libc",
  "serde",
