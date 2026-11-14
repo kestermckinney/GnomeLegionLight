@@ -1,0 +1,8 @@
+/target
+.release-secrets/
+packaging/linux/flatpak-build/
+packaging/linux/flatpak-repo/
+packaging/linux/.*.resolved.yml
+packaging/linux/*.flatpak
+.flatpak-builder/
+public/

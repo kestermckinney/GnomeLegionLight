@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.gitlab.kestermckinney.GnomeLegionLight</id>
+  <metadata_license>FSFAP</metadata_license>
+  <project_license>MIT</project_license>
+
+  <name>Legion Light</name>
+  <summary>Keyboard backlight control in the GNOME top bar for Lenovo Legion laptops</summary>
+
+  <developer id="io.gitlab.kestermckinney">
+    <name>Kester McKinney</name>
+  </developer>
+
+  <description>
+    <p>
+      Legion Light for GNOME puts the keyboard backlight of Lenovo Legion laptops
+      with a one-zone RGB keyboard in the GNOME top bar. Its settings dialog edits
+      the three Fn+Space profiles, effects, colours, custom palettes and brightness.
+    </p>
+    <p>
+      A background service fades the backlight down after a period without input
+      and brings it back as soon as you return. Custom palettes and random blends
+      keep playing with no window open.
+    </p>
+    <p>
+      Open Legion Light once after installing to add the GNOME Shell extension,
+      then log out and back in. Device access needs a udev rule installed on the
+      host; see the project page.
+    </p>
+  </description>
+
+  <launchable type="desktop-id">io.gitlab.kestermckinney.GnomeLegionLight.desktop</launchable>
+
+  <url type="homepage">https://gitlab.com/kestermckinney/gnomelegionlight</url>
+  <url type="bugtracker">https://gitlab.com/kestermckinney/gnomelegionlight/-/issues</url>
+
+  <content_rating type="oars-1.1"/>
+
+  <releases>
+    <release version="0.1.0" date="2026-11-14"/>
+  </releases>
+
+  <provides>
+    <binary>legion_light_gnome_daemon</binary>
+    <dbus type="user">io.gitlab.kestermckinney.GnomeLegionLight</dbus>
+  </provides>
+</component>

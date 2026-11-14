@@ -1,0 +1,14 @@
+[Unit]
+Description=Legion Light keyboard idle daemon
+PartOf=graphical-session.target
+After=graphical-session.target
+
+[Service]
+Type=dbus
+BusName=io.gitlab.kestermckinney.GnomeLegionLight
+ExecStart=%h/.local/bin/legion_light_gnome_daemon
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=graphical-session.target

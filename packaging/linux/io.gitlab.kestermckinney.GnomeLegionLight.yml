@@ -1,0 +1,57 @@
+app-id: io.gitlab.kestermckinney.GnomeLegionLight
+runtime: org.freedesktop.Platform
+runtime-version: '25.08'
+sdk: org.freedesktop.Sdk
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.rust-stable
+# Runs the daemon. The launcher passes --setup to install the shell extension.
+command: legion_light_gnome_daemon
+
+finish-args:
+  # The keyboard controller is a /dev/hidraw node (USB 048d:c615). Flatpak has no
+  # narrower device permission than --device=all for hidraw. The daemon opens only
+  # the node whose identity and HID descriptor match, and it still needs the host
+  # udev rule (packaging/70-legionlight.rules) to be allowed to open it.
+  - --device=all
+  # Inactivity time for idle dimming.
+  - --talk-name=org.gnome.Mutter.IdleMonitor
+  # Enable the extension and open its settings after installing it.
+  - --talk-name=org.gnome.Shell.Extensions
+  # A Flatpak cannot install a shell extension itself, so the daemon copies the
+  # bundled one into the host's extension directory (and updates it).
+  - --filesystem=xdg-data/gnome-shell/extensions:create
+  # Settings and profiles, shared with the preferences dialog, which runs on the host.
+  - --filesystem=xdg-config/legionlight:create
+
+build-options:
+  append-path: /usr/lib/sdk/rust-stable/bin
+  env:
+    CARGO_HOME: /run/build/gnomelegionlight/cargo
+
+modules:
+  - name: gnomelegionlight
+    buildsystem: simple
+    build-options:
+      # Cargo fetches crates (and the legion_light library from GitLab) during the
+      # build. This is a self-hosted repo, not Flathub, so a network build is
+      # acceptable; Flathub would need flatpak-cargo-generator offline sources.
+      build-args:
+        - --share=network
+    build-commands:
+      - cargo build --release --locked --bin legion_light_gnome_daemon
+      - install -Dm755 target/release/legion_light_gnome_daemon /app/bin/legion_light_gnome_daemon
+      - mkdir -p /app/share/gnome-legion-light/extension
+      - cp -r shell-extension/. /app/share/gnome-legion-light/extension/
+      - bash packaging/write-build-info.sh /app/share/gnome-legion-light/extension target/release/legion_light_gnome_daemon
+      - install -Dm644 packaging/linux/io.gitlab.kestermckinney.GnomeLegionLight.service /app/share/dbus-1/services/io.gitlab.kestermckinney.GnomeLegionLight.service
+      - install -Dm644 packaging/linux/io.gitlab.kestermckinney.GnomeLegionLight.desktop /app/share/applications/io.gitlab.kestermckinney.GnomeLegionLight.desktop
+      - install -Dm644 packaging/linux/io.gitlab.kestermckinney.GnomeLegionLight.metainfo.xml /app/share/metainfo/io.gitlab.kestermckinney.GnomeLegionLight.metainfo.xml
+      - install -Dm644 packaging/linux/icons/scalable/io.gitlab.kestermckinney.GnomeLegionLight.svg /app/share/icons/hicolor/scalable/apps/io.gitlab.kestermckinney.GnomeLegionLight.svg
+      - for s in 64 128 256 512; do install -Dm644 packaging/linux/icons/${s}x${s}/io.gitlab.kestermckinney.GnomeLegionLight.png /app/share/icons/hicolor/${s}x${s}/apps/io.gitlab.kestermckinney.GnomeLegionLight.png; done
+      - install -Dm644 packaging/70-legionlight.rules /app/share/gnome-legion-light/70-legionlight.rules
+    sources:
+      # build-flatpak.sh and CI overwrite this commit with the release tag's SHA.
+      # GLL_REF=local swaps it for the working tree (see build-flatpak.sh).
+      - type: git
+        url: https://gitlab.com/kestermckinney/gnomelegionlight.git
+        commit: '0000000000000000000000000000000000000000'

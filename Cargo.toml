@@ -1,0 +1,30 @@
+[package]
+name = "gnome_legion_light"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.80"
+description = "GNOME Shell extension and idle daemon for Lenovo Legion keyboard backlights"
+license = "MIT"
+
+[dependencies]
+# Keyboard protocol, worker and profile model, shared with the Legion Light
+# desktop app. Cargo.lock pins the commit; `cargo update -p legion_light` moves it.
+# To build against a sibling checkout instead, see "Developing" in the README.
+legion_light = { git = "https://gitlab.com/kestermckinney/legionlight.git", branch = "main" }
+# xattr 0.2 (through GPUI in legion_light) requires ENOATTR; keep libc in step.
+libc = "=0.2.186"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+# Session-bus service and GNOME idle monitor.
+zbus = "3.13"
+
+[[bin]]
+name = "legion_light_gnome_daemon"
+path = "src/main.rs"
+
+[profile.release]
+opt-level = 3
+lto = true
+strip = true
+panic = "abort"
+codegen-units = 1

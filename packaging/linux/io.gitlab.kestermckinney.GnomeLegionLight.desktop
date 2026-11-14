@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Legion Light
+GenericName=Keyboard Backlight Control
+Comment=Keyboard backlight colour, effects and idle dimming in the GNOME top bar
+Exec=legion_light_gnome_daemon --setup
+Icon=io.gitlab.kestermckinney.GnomeLegionLight
+Categories=Settings;HardwareSettings;
+Keywords=keyboard;backlight;rgb;lenovo;legion;gnome;extension;
+Terminal=false
+StartupNotify=false

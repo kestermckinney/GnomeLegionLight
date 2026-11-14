@@ -1,0 +1,18 @@
+/* Compact information rows in the Legion Light panel menu. */
+.legion-light-row {
+    padding-top: 4px;
+    padding-bottom: 4px;
+    spacing: 24px;
+}
+
+.legion-light-value {
+    font-feature-settings: "tnum";
+}
+
+/* Top bar button: sized like an AppIndicator tray icon (e.g. MEGA), which keeps
+   the panel's normal button padding and the icon margin but drops the icon's
+   own padding. */
+#panel .panel-button.legion-light-indicator .system-status-icon {
+    icon-size: 16px;
+    padding: 0;
+}
