@@ -53,5 +53,5 @@ modules:
       # build-flatpak.sh and CI overwrite this commit with the release tag's SHA.
       # GLL_REF=local swaps it for the working tree (see build-flatpak.sh).
       - type: git
-        url: https://gitlab.com/kestermckinney/gnomelegionlight.git
+        url: https://gitlab.com/kestermckinney/GnomeLegionLight.git
         commit: '0000000000000000000000000000000000000000'

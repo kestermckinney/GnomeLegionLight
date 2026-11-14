@@ -1,7 +1,7 @@
 [Flatpak Repo]
 Title=Legion Light for GNOME
 Url=https://kestermckinney.gitlab.io/gnomelegionlight/flatpak/
-Homepage=https://gitlab.com/kestermckinney/gnomelegionlight
+Homepage=https://gitlab.com/kestermckinney/GnomeLegionLight
 Comment=GNOME top-bar keyboard backlight control for Lenovo Legion laptops
 Description=Flatpak repository for Legion Light for GNOME. Add this remote to install it and receive updates via `flatpak update`.
 Icon=https://kestermckinney.gitlab.io/gnomelegionlight/flatpak/icon.png

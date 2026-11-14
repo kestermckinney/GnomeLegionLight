@@ -31,8 +31,8 @@
 
   <launchable type="desktop-id">io.gitlab.kestermckinney.GnomeLegionLight.desktop</launchable>
 
-  <url type="homepage">https://gitlab.com/kestermckinney/gnomelegionlight</url>
-  <url type="bugtracker">https://gitlab.com/kestermckinney/gnomelegionlight/-/issues</url>
+  <url type="homepage">https://gitlab.com/kestermckinney/GnomeLegionLight</url>
+  <url type="bugtracker">https://gitlab.com/kestermckinney/GnomeLegionLight/-/issues</url>
 
   <content_rating type="oars-1.1"/>
 

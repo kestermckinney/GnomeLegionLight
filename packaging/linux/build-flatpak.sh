@@ -36,7 +36,7 @@ fi
 #   <tag|branch|sha>  that ref
 # The resolved pin goes into a generated copy; the committed manifest is not edited.
 GLL_REF="${GLL_REF:-latest}"
-GLL_GIT_URL="https://gitlab.com/kestermckinney/gnomelegionlight.git"
+GLL_GIT_URL="https://gitlab.com/kestermckinney/GnomeLegionLight.git"
 RESOLVED_MANIFEST="$SCRIPT_DIR/.${APP_ID}.resolved.yml"
 LINTER_APP="org.flatpak.Builder"
 METAINFO_FILE="$SCRIPT_DIR/${APP_ID}.metainfo.xml"

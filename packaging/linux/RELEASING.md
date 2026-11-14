@@ -7,7 +7,7 @@ repository to GitLab Pages at
 
 ## One-time setup
 
-1. Create the **public** GitLab project `kestermckinney/gnomelegionlight` (the
+1. Create the **public** GitLab project `kestermckinney/GnomeLegionLight` (the
    Flatpak app ID `io.gitlab.kestermckinney.GnomeLegionLight` must resolve to it;
    the Flathub linter checks it) and push this repository.
 2. Enable GitLab Pages with public access and disable **Use unique domain** so the
