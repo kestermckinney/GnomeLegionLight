@@ -10,7 +10,7 @@ license = "MIT"
 # Keyboard protocol, worker and profile model, shared with the Legion Light
 # desktop app. Cargo.lock pins the commit; `cargo update -p legion_light` moves it.
 # To build against a sibling checkout instead, see "Developing" in the README.
-legion_light = { git = "https://gitlab.com/kestermckinney/legionlight.git", branch = "main" }
+legion_light = { git = "https://github.com/kestermckinney/legionlight.git", branch = "main" }
 # xattr 0.2 (through GPUI in legion_light) requires ENOATTR; keep libc in step.
 libc = "=0.2.186"
 serde = { version = "1.0", features = ["derive"] }

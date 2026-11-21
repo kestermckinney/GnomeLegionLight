@@ -6,7 +6,7 @@ GNOME experience, with no desktop-app window involved:
 - The Legion Light icon in the top bar, bright while the backlight is lit and dim
   while it is off or idle-dimmed, with a small status menu.
 - **Settings…** opens a GNOME preferences dialog with everything the
-  [Legion Light desktop app](https://gitlab.com/kestermckinney/legionlight) offers:
+  [Legion Light desktop app](https://github.com/kestermckinney/legionlight) offers:
   the three Fn+Space profiles, effect (Off, Static, Breathe, Lenovo colours, Custom
   palette, Random blend with its step in milliseconds), speed, colour (picker,
   presets, hex or RGB), a 2–4 colour custom palette, brightness (choosing or
@@ -17,7 +17,7 @@ GNOME experience, with no desktop-app window involved:
   returns at its previous brightness as soon as you are back.
 
 The keyboard protocol, worker and profile model come from the
-[`legion_light`](https://gitlab.com/kestermckinney/legionlight) library, so both
+[`legion_light`](https://github.com/kestermckinney/legionlight) library, so both
 projects drive the keyboard identically.
 
 ## Install with Flatpak
