@@ -54,4 +54,4 @@ modules:
       # GLL_REF=local swaps it for the working tree (see build-flatpak.sh).
       - type: git
         url: https://github.com/kestermckinney/GnomeLegionLight.git
-        commit: '0000000000000000000000000000000000000000'
+        commit: 'b9fd56dc4cacab78858963aa8c833f7e45dc54e5'
