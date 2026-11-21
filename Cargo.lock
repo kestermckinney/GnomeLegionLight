@@ -483,7 +483,7 @@ dependencies = [
 
 [[package]]
 name = "gnome_legion_light"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "legion_light",
  "libc",
