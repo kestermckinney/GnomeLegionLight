@@ -4,6 +4,6 @@
     "description": "GNOME extension for controlling Lenovo Legion keyboard backlight",
     "version": "0.1.0",
     "shell-version": ["45", "46", "47", "48", "49", "50", "51"],
-    "url": "https://gitlab.com/kestermckinney/GnomeLegionLight",
+    "url": "https://github.com/kestermckinney/GnomeLegionLight",
     "gettext-domain": "legion-light"
 }
