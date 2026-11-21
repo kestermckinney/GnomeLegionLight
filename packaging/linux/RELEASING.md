@@ -1,61 +1,48 @@
-# Linux releases on GitLab
+# Linux releases on GitHub
 
-A `v*` tag pipeline builds a signed OSTree repository and a
-`GnomeLegionLight.flatpak` bundle. The manual `publish-release` job deploys the
-repository to GitLab Pages at
-`https://kestermckinney.gitlab.io/gnomelegionlight/flatpak/`.
+GitHub Actions builds a signed Flatpak repository and bundle. GitHub Pages hosts
+the repository at `https://kestermckinney.github.io/GnomeLegionLight/flatpak/`.
+The app ID remains `io.gitlab.kestermckinney.GnomeLegionLight` so existing
+installations can update. The GitLab project is private, so this ID will not
+pass Flathub's public ownership checks; this repository is self-hosted.
 
-## One-time setup
+## Signing and publishing
 
-1. Create the **public** GitLab project `kestermckinney/GnomeLegionLight` (the
-   Flatpak app ID `io.gitlab.kestermckinney.GnomeLegionLight` must resolve to it;
-   the Flathub linter checks it) and push this repository.
-2. Enable GitLab Pages with public access and disable **Use unique domain** so the
-   stable URL above serves the repository without redirects.
-3. Protect `v*` tags and add protected CI/CD variables. This project signs with the
-   same key as Legion Light (its public key is in `gnomelegionlight.flatpakrepo`),
-   so copy the values from the Legion Light project:
+The Actions secrets `FLATPAK_GPG_PRIVATE_KEY` and `FLATPAK_GPG_KEY_ID` hold the
+existing signing key and fingerprint. If the key has a passphrase, set
+`FLATPAK_GPG_PASSPHRASE` as well. Keep an independent, secure backup of the
+private key. The build checks it against the public key in
+`gnomelegionlight.flatpakrepo` and stops if they differ.
 
-   | Variable | Type | Contents |
-   | --- | --- | --- |
-   | `FLATPAK_GPG_PRIVATE_KEY` | File | `LegionLight/.release-secrets/flatpak-signing-private.asc` |
-   | `FLATPAK_GPG_KEY_ID` | Variable | `LegionLight/.release-secrets/fingerprint.txt` |
-   | `FLATPAK_GPG_PASSPHRASE` | Masked variable | Only if the key has a passphrase (this one has none) |
+GitHub Pages must use GitHub Actions as its publishing source. A successful tag
+build publishes the Pages repository and attaches the bundle and `.flatpakrepo`
+to a GitHub release. Only publish trusted tags: a tag build can deploy the site
+and access the signing secrets.
 
-   Never commit the private key. CI refuses to sign with any key other than the
-   one embedded in `gnomelegionlight.flatpakrepo`.
-4. Use a runner that can run Flatpak/bubblewrap builds (a self-managed Docker runner
-   may need privileged mode).
+1. Bump the version in `Cargo.toml` and `Cargo.lock`, and add a release to
+   `io.gitlab.kestermckinney.GnomeLegionLight.metainfo.xml`.
+2. Commit and push to `main`, then create and push a matching tag, for example
+   `git tag v0.2.0 && git push origin v0.2.0`.
+3. Check the Flatpak workflow, GitHub release, and hosted repository. CI rejects
+   a tag that doesn't match `Cargo.toml`.
 
-## Cut a release
-
-1. Make sure `Cargo.lock` pins a pushed `legion_light` commit
-   (`cargo update -p legion_light` after pushing Legion Light).
-2. Bump `version` in `Cargo.toml` and `shell-extension/metadata.json`, and add a
-   `<release>` to `packaging/linux/io.gitlab.kestermckinney.GnomeLegionLight.metainfo.xml`.
-3. Commit, push, then tag: `git tag v0.1.0 && git push origin v0.1.0`.
-   CI checks that the tag matches `Cargo.toml`.
-4. Review the `flatpak-release` artifacts, then run `publish-release`.
+A manually dispatched workflow builds and publishes the version in `Cargo.toml`
+without creating a GitHub release.
 
 ## Local build
 
 ```bash
-./packaging/linux/build-flatpak.sh setup          # once
-GLL_REF=local ./packaging/linux/build-flatpak.sh install   # build working tree and install
+./packaging/linux/build-flatpak.sh setup
+GLL_REF=local ./packaging/linux/build-flatpak.sh install
 flatpak run io.gitlab.kestermckinney.GnomeLegionLight --setup
 ```
 
-`GLL_REF` selects the source: `latest` tag (default), `local` working tree, `pinned`
-manifest commit, or any tag/branch/SHA. For a signed local repo set `GPG_KEY_ID`,
-`GPG_HOMEDIR`, `APP_REPO_URL`, then run `repo` and `bundle`.
+`GLL_REF` selects the latest tag (default), `local` working tree, `pinned`
+manifest commit, or a tag, branch or SHA. For a signed local repository set
+`GPG_KEY_ID`, `GPG_HOMEDIR`, and `APP_REPO_URL`, then run `repo` and `bundle`.
+See the README for installation, migration and keyboard access instructions.
 
-## Known limits
-
-- Crates and the `legion_light` library are downloaded during the Flatpak build
-  (`--share=network`). Flathub would require offline sources from
-  `flatpak-cargo-generator`.
-- The Flathub linter flags `--device=all` and the write access to
-  `xdg-data/gnome-shell/extensions`; the self-hosted repo has no such gate.
-- A Flatpak cannot install a shell extension when it is installed. The user opens
-  Legion Light once (`--setup`) and logs in again; later updates are copied by the
-  daemon and load at the next login.
+The build downloads crates and the pinned `legion_light` library over the
+network. A Flathub submission would require offline sources and review of the
+`--device=all` permission. The user must open the installed app once to set up
+the GNOME Shell extension.

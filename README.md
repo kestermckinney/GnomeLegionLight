@@ -26,7 +26,7 @@ Requires [Flatpak](https://flatpak.org/setup/) with the Flathub remote (for the
 runtime) and GNOME Shell 45 or newer.
 
 ```bash
-flatpak remote-add --user --if-not-exists gnomelegionlight https://kestermckinney.gitlab.io/gnomelegionlight/flatpak/gnomelegionlight.flatpakrepo
+flatpak remote-add --user --if-not-exists gnomelegionlight https://kestermckinney.github.io/GnomeLegionLight/flatpak/gnomelegionlight.flatpakrepo
 flatpak install --user gnomelegionlight io.gitlab.kestermckinney.GnomeLegionLight
 ```
 
@@ -40,6 +40,16 @@ and opens its settings.
 The daemon starts on demand through D-Bus activation when the extension loads.
 `flatpak update` updates the daemon straight away, and the daemon updates the
 extension files the next time it starts; GNOME Shell loads them at the next login.
+
+Existing users can move the GitLab Flatpak remote to GitHub while keeping the
+same app ID and signing key:
+
+```bash
+flatpak remote-modify --user --url=https://kestermckinney.github.io/GnomeLegionLight/flatpak/ gnomelegionlight
+flatpak update --user io.gitlab.kestermckinney.GnomeLegionLight
+```
+
+Use `--system` instead of `--user` for a system-wide remote.
 
 Do not install the Flatpak and the native install (below) at the same time.
 

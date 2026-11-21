@@ -32,7 +32,7 @@ modules:
   - name: gnomelegionlight
     buildsystem: simple
     build-options:
-      # Cargo fetches crates (and the legion_light library from GitLab) during the
+      # Cargo fetches crates (and the legion_light library from GitHub) during the
       # build. This is a self-hosted repo, not Flathub, so a network build is
       # acceptable; Flathub would need flatpak-cargo-generator offline sources.
       build-args:
@@ -53,5 +53,5 @@ modules:
       # build-flatpak.sh and CI overwrite this commit with the release tag's SHA.
       # GLL_REF=local swaps it for the working tree (see build-flatpak.sh).
       - type: git
-        url: https://gitlab.com/kestermckinney/GnomeLegionLight.git
+        url: https://github.com/kestermckinney/GnomeLegionLight.git
         commit: '0000000000000000000000000000000000000000'
